@@ -20,9 +20,19 @@ function generatePassword() {
     isUppercase: true,
     isNumeric: true,
     isSpecialCharacters: true,
-    validate: function(){
-      if((length>8 && length<128) && 
-      (isLowercase || isUppercase || isNumeric || isSpecialCharacters)) {
+    
+    // validate if 8 < length < 128
+    validateLength: function(){
+      if (this.length>8 && this.length<128) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    
+    // validate if at least one character type should be selected
+    validateCharSet: function(){
+      if(this.isLowercase || this.isUppercase || this.isNumeric || this.isSpecialCharacters) {
         return true;
       } else {
         return false;
@@ -31,8 +41,29 @@ function generatePassword() {
   }
 
   //get criteria from user
+  alert("Please choose criteria for password : length, lowercase, uppercase, numeric, and/or special characters ");
+  //get length of password and validate if 8 < length < 128 characters
+  do {
+    passwordCriteria.length = Number(prompt("Please set the length of password. It should be between 8 and 128 characters", ""));
+  } while (!passwordCriteria.validateLength());
 
-  //validate criteria: 8 < length < 128 characters and at least one character type.
+  //confirm if password include lowercase, uppercase, special characters and validate if at least one character type was chosen.
+  do {
+    alert("Please choose at least one type: lowercase, uppercase, numeric and/or special charaters.");
+    passwordCriteria.isLowercase = confirm("Do you want to include lowercase?");
+    passwordCriteria.isUppercase = confirm("Do you want to include uppercase?");
+    passwordCriteria.isNumeric = confirm("Do you want to include number?");
+    passwordCriteria.isSpecialCharacters = confirm("Do you want to include special charaters?");
+  } while (!passwordCriteria.validateCharSet());
+
+  console.log(passwordCriteria);
+
+
+
+  //confirm if password include uppercase
+  //confirm if password include special characters
+
+  // and at least one character type.
 
   //generate the random password
 
