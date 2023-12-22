@@ -8,18 +8,30 @@ function generatePassword() {
     numbericSet: "0123456789",
     specialCharSet: " !#$%&'()*+,-./:;<=>?@[\]^_`{|}~",
     criteria: passwordCriteria,
-    setCriteria: function(criteriaObj){
-      this.criteria = criteriaObj;
+    passwd: "test",
+
+    //Create password with the given criteria.
+    createPassword: function() {
+      do {
+
+      }while (!this.validatePassword());
+      console.log(this.passwd);
+      return this.passwd;
+    },
+
+    // Validate if the password satisfy the given criteria.
+    validatePassword: function(){
+     return true; 
     }
   }
 
   //password criteria object
   var passwordCriteria = {
     length: 8,
-    isLowercase: true,
-    isUppercase: true,
-    isNumeric: true,
-    isSpecialCharacters: true,
+    includeLowercase: true,
+    includeUppercase: true,
+    includeNumeric: true,
+    includeSpecialCharacters: true,
     
     // validate if 8 < length < 128
     validateLength: function(){
@@ -32,7 +44,7 @@ function generatePassword() {
     
     // validate if at least one character type should be selected
     validateCharSet: function(){
-      if(this.isLowercase || this.isUppercase || this.isNumeric || this.isSpecialCharacters) {
+      if(this.includeLowercase || this.includeUppercase || this.includeNumeric || this.includeSpecialCharacters) {
         return true;
       } else {
         return false;
@@ -50,25 +62,18 @@ function generatePassword() {
   //confirm if password include lowercase, uppercase, special characters and validate if at least one character type was chosen.
   do {
     alert("Please choose at least one type: lowercase, uppercase, numeric and/or special charaters.");
-    passwordCriteria.isLowercase = confirm("Do you want to include lowercase?");
-    passwordCriteria.isUppercase = confirm("Do you want to include uppercase?");
-    passwordCriteria.isNumeric = confirm("Do you want to include number?");
-    passwordCriteria.isSpecialCharacters = confirm("Do you want to include special charaters?");
+    passwordCriteria.includeLowercase = confirm("Do you want to include lowercase?");
+    passwordCriteria.includeUppercase = confirm("Do you want to include uppercase?");
+    passwordCriteria.includeNumeric = confirm("Do you want to include number?");
+    passwordCriteria.includeSpecialCharacters = confirm("Do you want to include special charaters?");
   } while (!passwordCriteria.validateCharSet());
+  // console.log(passwordCriteria);
 
-  console.log(passwordCriteria);
-
-
-
-  //confirm if password include uppercase
-  //confirm if password include special characters
-
-  // and at least one character type.
-
-  //generate the random password
-
-  //display password
-
+  //set criteria for password
+  password.criteria = passwordCriteria;
+  
+  //return password 
+  return password.createPassword();
 };
 
 // Get references to the #generate element
