@@ -6,14 +6,38 @@ function generatePassword() {
     lowercaseSet: "abcdefghijklmnopqrstuvwxyz",
     uppercaseSet: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
     numbericSet: "0123456789",
-    specialCharSet: " !#$%&'()*+,-./:;<=>?@[\]^_`{|}~",
+    specialCharSet: "~!@#$%^&*()_+<>•`{}",
     criteria: passwordCriteria,
-    passwd: "test",
+    passwd: "",
 
     //Create password with the given criteria.
     createPassword: function() {
-      do {
+      // create a string which includes all of character satisfies the criteria.
+      var charSet = "";
+      if (this.criteria.includeLowercase) {
+        charSet = charSet + this.lowercaseSet;        
+      }
+      if (this.criteria.includeNumeric) {
+        charSet = charSet + this.numbericSet;        
+      }
+      if (this.criteria.includeSpecialCharacters) {
+        charSet = charSet + this.specialCharSet;        
+      }
+      if (this.criteria.includeUppercase) {
+        charSet = charSet + this.uppercaseSet;        
+      }
+      
+      console.log(charSet);
 
+      //make password from random character of charSet.
+      do {
+        this.passwd = "";
+        console.log("genPass");
+        for (let index = 0; index < this.criteria.length; index++) {
+          const element = charSet[index];
+          this.passwd += charSet.charAt(Math.floor(Math.random()*charSet.length));
+        };
+        console.log(this.passwd);
       }while (!this.validatePassword());
       console.log(this.passwd);
       return this.passwd;
@@ -21,7 +45,37 @@ function generatePassword() {
 
     // Validate if the password satisfy the given criteria.
     validatePassword: function(){
-     return true; 
+      if (this.passwd.length < 8 || this.passwd.length > 128) {
+        return false
+      };
+      
+      if (this.criteria.includeNumeric) {
+        if (!(/\d/.test(this.passwd))) { 
+          return false;
+        };
+      };
+
+      if (this.criteria.includeLowercase) {
+        if (!/[a-z]/.test(this.passwd)) {
+          return false;          
+        }        
+      };
+
+      if (this.criteria.includeUppercase) {
+        if (!/[A-Z]/.test(this.passwd)) {
+          return false;          
+        }        
+      };
+
+      if (this.criteria.includeSpecialCharacters) {
+        var regexp = /[~!@#$%^&*()_+<>•`{}]/;
+        if (!(regexp.test(this.passwd))) {
+          return false;          
+        }        
+      }
+
+     
+      return true; 
     }
   }
 
@@ -35,7 +89,7 @@ function generatePassword() {
     
     // validate if 8 < length < 128
     validateLength: function(){
-      if (this.length>8 && this.length<128) {
+      if (this.length>=8 && this.length<=128) {
         return true;
       } else {
         return false;
