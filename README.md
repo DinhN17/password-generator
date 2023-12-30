@@ -11,10 +11,15 @@ This password generator page was created as a tool to generate a random password
 ## Usage
 
 To view this webpage please follow the link https://dinhn17.github.io/password-generator/
+
 Step 1: Click on Generate Password button.
+
 Step 2: Choose the criteria for generating the password.
+        
         - The length should be between 8 and 128 characters.
+        
         - Choose at least one type of character (lowercase, uppercase, numberic and/or special characters) by clicking on OK button.
+
 Step 3: The random generated password will be displayed on the page.
 
 ## Credits
