@@ -37,7 +37,8 @@ function generatePassword() {
     lowercaseSet: "abcdefghijklmnopqrstuvwxyz",
     uppercaseSet: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
     numbericSet: "0123456789",
-    specialCharSet: "~!@#$%^&*()_+<>•`{}",
+    // specialCharSet: "~!@#$%^&*()_+<>•`{}",
+    specialCharSet: " !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~",
     criteria: passwordCriteria,
     passwd: "",
 
@@ -78,7 +79,7 @@ function generatePassword() {
       // Check if the passwword satisfies the given criteria.
       if ((this.criteria.includeLowercase && (!/[a-z]/.test(this.passwd))) ||
           (this.criteria.includeNumeric && (!/\d/.test(this.passwd))) ||
-          (this.criteria.includeSpecialCharacters && (!/[~!@#$%^&*()_+<>•`{}]/.test(this.passwd))) ||
+          (this.criteria.includeSpecialCharacters && (!/[ !"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~]/.test(this.passwd))) ||
           (this.criteria.includeUppercase && (!/[A-Z]/.test(this.passwd)))
           ) {
             return false;        
@@ -89,20 +90,20 @@ function generatePassword() {
   }
 
   // get criteria from user
-  alert("Please choose criteria for password : length, lowercase, uppercase, numeric, and/or special characters ");
+  alert("Please choose criteria for password : length, lowercase, uppercase, numeric, and/or special characters.");
   
   // get length of password and validate if 8 < length < 128 characters
   do {
-    passwordCriteria.length = Number(prompt("Please set the length of password. It should be between 8 and 128 characters", ""));
+    passwordCriteria.length = Number(prompt("Please set the length of password. It should be between 8 and 128 characters.", ""));
   } while (!passwordCriteria.validateInputLength());
 
   // confirm if password include lowercase, uppercase, special characters and validate if at least one character type was chosen.
   do {
-    alert("Please choose at least one type: lowercase, uppercase, numeric and/or special charaters.");
+    alert("Please choose at least one type: lowercase, uppercase, numeric and/or special characters.");
     passwordCriteria.includeLowercase = confirm("Do you want to include lowercase?");
     passwordCriteria.includeUppercase = confirm("Do you want to include uppercase?");
     passwordCriteria.includeNumeric = confirm("Do you want to include number?");
-    passwordCriteria.includeSpecialCharacters = confirm("Do you want to include special charaters?");
+    passwordCriteria.includeSpecialCharacters = confirm("Do you want to include special characters?");
   } while (!passwordCriteria.validateCharSet());
 
   
